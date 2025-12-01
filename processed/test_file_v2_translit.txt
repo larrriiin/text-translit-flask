@@ -1,0 +1,57 @@
+Testovyy tekst dlya proverki raboty sistemy transliteratsii.
+
+Etot fayl soderzhit razlichnye simvoly, frazy i konstruktsii, chtoby maksimalno polno protestirovat rabotu servera, frontenda i mekhanizma obrabotki tekstovykh dannykh. Osnovnaya tsel — ubeditsya, chto transliteratsiya korrektno preobrazuet russkiy tekst v sootvetstvuyushchiy latinskiy analog, ne izmenyaya angliyskie slova, tsifry, znaki prepinaniya i strukturnye elementy teksta.
+
+Nizhe predstavlena rasshirennaya testovaya vyborka:
+
+Prostye frazy:
+Privet mir!
+Kak dela?
+Eto testovyy fayl dlya proverki.
+
+Smeshannye frazy:
+Segodnya 28 yanvarya, temperatura +5°C, veter severnyy.
+Fayl test_document.txt byl uspeshno zagruzhen.
+V 2024 godu planiruetsya obnovlenie sistemy.
+
+Spetsialnye simvoly i konstruktsii:
+@#$%^&*()_+=-{}[];:'",.<>/?~
+Put k faylu: C:\Users\Admin\Desktop\primer.txt
+URL: https://example.com/test?value=primer
+
+Korotkie predlozheniya:
+Mashina edet bystro.
+Zvezdnoe nebo prekrasno.
+Chelovek — samoe udivitelnoe sushchestvo.
+
+Razlichnye formy slov:
+Poekhali, poekhavshie, poezd, poezdka, poezdit.
+Rabota, rabotayu, rabotaet, rabotali, rabotavshiy.
+Siniy, sinego, sinemu, sinim, sinem.
+
+Neskolko bolshikh abzatsev dlya testirovaniya obema:
+
+Zhizn — eto slozhnoe i mnogosloynoe yavlenie, kotoroe vklyuchaet v sebya beschislennoe kolichestvo faktorov, vliyayushchikh na razvitie lichnosti, obshchestva i tsivilizatsii v tselom. Istoricheski lyudi stremilis ponyat prirodu mira, nayti svoyo mesto v nyom, opredelit tseli, tsennosti i printsipy, upravlyayushchie ikh povedeniem. Eti poiski priveli k poyavleniyu filosofii, nauki, iskusstva i religii, kazhdaya iz kotorykh predlagaet unikalnyy vzglyad na okruzhayushchuyu deystvitelnost.
+
+Tekhnologicheskiy progress, nablyudaemyy v poslednie stoletiya, radikalno izmenil obraz zhizni, rasshiriv vozmozhnosti tsivilizatsii, no odnovremenno sozdav novye vyzovy. Razvitie iskusstvennogo intellekta, avtomatizatsiya, globalnye kommunikatsii — vsyo eto formiruet novuyu strukturu obshchestva, v kotoroy informatsionnye potoki stanovyatsya klyuchevym resursom. V takikh usloviyakh vozrastaet vazhnost obrabotki dannykh, tochnosti algoritmov i bezopasnosti tsifrovoy sredy.
+
+Testirovanie dlinnykh strok:
+Aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa!
+Tekstteksttekstteksttekstteksttekstteksttekst.
+Primerprimerprimerprimerprimerprimerprimer.
+
+Angliyskiy tekst (dolzhen ostatsya bez izmeneniy):
+This is an English sentence with no transliteration.
+The quick brown fox jumps over the lazy dog.
+File upload test: success.
+
+Chisla i kombinatsii:
+1234567890
+2024-01-28
+Versiya 1.0.5-beta
+
+Para dlinnykh strok s raznymi simvolami:
+Primer stroki №1: ***///???!!!###%%%&&&!!!
+Primer stroki №2: Test—funktsiya—obrabotka—dannykh. Obyom: 1024KB.
+
+Konets fayla.

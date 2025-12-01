@@ -1,0 +1,156 @@
+{% extends "base.html" %}
+{% block title %}Транслитерация текста{% endblock %}
+
+{% block head_extra %}
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet" />
+<script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+
+<script>
+    tailwind.config = {
+        darkMode: "class",
+        theme: {
+            extend: {
+                colors: {
+                    primary: "#3b82f6",
+                    "background-light": "#f1f5f9",
+                    "background-dark": "#0f172a",
+                },
+                fontFamily: { display: ["Roboto", "sans-serif"] },
+            },
+        },
+    }
+</script>
+
+<style>
+    body {
+        font-family: 'Roboto', sans-serif;
+        height: 100vh;
+        overflow: hidden;
+        /* НЕТ ПРОКРУТКИ */
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<div class="h-[calc(100vh-70px)] flex items-center justify-center">
+
+    <div class="w-full max-w-xl bg-white dark:bg-slate-800 rounded-lg shadow p-8">
+
+        <h1 class="text-3xl font-bold text-center text-slate-900 dark:text-white mb-8">
+            Транслитерация текста
+        </h1>
+
+        <form id="upload-form" method="post" enctype="multipart/form-data">
+
+            <div id="drop-zone" class="border-2 border-dashed border-slate-300 dark:border-slate-600 rounded-lg
+                    p-10 flex flex-col items-center justify-center text-center
+                    bg-slate-50 dark:bg-slate-700/50 cursor-pointer transition">
+
+                <span class="material-icons-outlined text-5xl text-slate-400 dark:text-slate-500 mb-4">
+                    file_upload
+                </span>
+
+                <p class="text-slate-500 dark:text-slate-400">
+                    Перетащите .txt файл сюда или нажмите для выбора
+                </p>
+
+                <input type="file" id="file-input" name="file" accept=".txt" class="hidden">
+            </div>
+
+            <p id="file-status" class="text-center text-sm text-slate-500 dark:text-slate-400 mt-4">
+                Файл не выбран
+            </p>
+
+            <div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+
+                <button type="button" id="select-button" class="px-6 py-2.5 text-sm font-medium
+                       border border-primary text-primary rounded-md
+                       hover:bg-blue-50 dark:hover:bg-blue-900/20 transition">
+                    Выбрать файл
+                </button>
+
+                <button id="upload-button" type="submit" class="px-6 py-2.5 text-sm font-medium bg-primary text-white rounded-md
+                       transition opacity-50 cursor-not-allowed" disabled>
+                    Загрузить и обработать
+                </button>
+            </div>
+        </form>
+
+        {% if result_filename %}
+        <div class="mt-8 text-center">
+
+            <form action="{{ url_for('main.download_file', filename=result_filename) }}" method="get">
+                <button class="px-6 py-2.5 text-sm font-medium bg-green-600 text-white rounded-md
+                       hover:bg-green-700 transition">
+                    Скачать обработанный файл
+                </button>
+            </form>
+
+        </div>
+        {% endif %}
+
+    </div>
+</div>
+
+<script>
+    const dropZone = document.getElementById("drop-zone");
+    const fileInput = document.getElementById("file-input");
+    const fileStatus = document.getElementById("file-status");
+    const uploadButton = document.getElementById("upload-button");
+    const selectButton = document.getElementById("select-button");
+
+    function updateButtonState() {
+        if (fileInput.files.length > 0) {
+            uploadButton.disabled = false;
+            uploadButton.classList.remove("opacity-50", "cursor-not-allowed");
+        } else {
+            uploadButton.disabled = true;
+            uploadButton.classList.add("opacity-50", "cursor-not-allowed");
+        }
+    }
+
+    function setFile(fileList) {
+        fileInput.files = fileList;
+        fileStatus.textContent = fileList[0].name;
+        updateButtonState();
+    }
+
+    dropZone.addEventListener("click", () => fileInput.click());
+    selectButton.addEventListener("click", () => fileInput.click());
+
+    fileInput.addEventListener("change", () => {
+        if (fileInput.files.length > 0) setFile(fileInput.files);
+        else fileStatus.textContent = "Файл не выбран";
+        updateButtonState();
+    });
+
+    dropZone.addEventListener("dragover", (e) => {
+        e.preventDefault();
+        dropZone.classList.add("bg-blue-50", "dark:bg-blue-900/20");
+    });
+
+    dropZone.addEventListener("dragleave", () => {
+        dropZone.classList.remove("bg-blue-50", "dark:bg-blue-900/20");
+    });
+
+    dropZone.addEventListener("drop", (e) => {
+        e.preventDefault();
+        dropZone.classList.remove("bg-blue-50", "dark:bg-blue-900/20");
+
+        if (e.dataTransfer.files.length === 0) return;
+        const file = e.dataTransfer.files[0];
+
+        if (!file.name.toLowerCase().endsWith(".txt")) {
+            fileStatus.textContent = "Разрешены только .txt файлы";
+            uploadButton.disabled = true;
+            uploadButton.classList.add("opacity-50", "cursor-not-allowed");
+            return;
+        }
+
+        setFile(e.dataTransfer.files);
+    });
+</script>
+
+{% endblock %}
